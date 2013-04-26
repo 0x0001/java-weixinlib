@@ -7,6 +7,7 @@ java-weixinlib
 ===============
 
 使用说明:
+
 	// 接入时
 	final String TOKEN = "xxx";
 	String signature = getRequest.getParameter("signature");
