@@ -48,8 +48,20 @@ java-weixinlib
 	if(msg instanceof WxRecvTextMsg)
 	
 	
-	// 发送消息
+	// 发送消息构建
+	// 通过 WxSendMsg sendMsg = WeiXin.builderSendByRecv(msg); 将收到的消息转为发送消息(交换了sendUser和fromUser)
+	// 文本消息
+	new WxSendTextMsg(sendMsg, content);
+	
+	// 多图消息
+	WxSendNewsMsg newsMsg = new WxSendNewsMsg(sendMsg)
+					.addItem("标题", "描述", "图片地址", "点击后跳转的链接")
+					.addItem....
+					最多可以添加10个
+	// 音乐消息
+	new WxSendMusicMsg(sendMsg, "标题","描述","低品质音乐地址", "高品质音乐地址 (wifi环境会使用这个地址进行播放)");
 
+	// 发送这些消息的时候可以直接使用`WeiXin.send(sendMsg, getResponse().getOutputStream());`会将msg转换成xml输出
 	
 	
 	
