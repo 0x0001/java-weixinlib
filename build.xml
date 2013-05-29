@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- ======================================================================= -->
+<!-- java-weixinlib build file                                          -->
+<!-- ======================================================================= -->
+<project name="weixin-open-lib" default="jar" basedir="..">
+	<property environment="env" />
+	<property name="app.dir" value="${basedir}\java-weixinlib" />
+	<property name="home.lib" value="${basedir}\libs" />
+	<property name="src.dir" value="${app.dir}\src" />
+	<property name="build.dir" value="${app.dir}\build" />
+	<property name="build.classes.dir" value="${build.dir}\classes" />
+	
+	<!-- Build classpath -->
+	<path id="build.classpath">
+		<pathelement  location="${build.classes.dir}" />
+		<fileset dir="${app.dir}\libs">
+			<include name="jaxen-1.1.1.jar"/>
+			<include name="jdom.jar"/>
+		</fileset>
+	</path>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory                                        -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+
+	<!-- depends="prepare" -->
+	<target name="compile"  description="编绎">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" encoding="utf-8"  
+			debug="true" deprecation="true" optimize="on" includeantruntime="on" target="1.6" source="1.6">
+			<classpath refid="build.classpath" />
+		</javac>
+	</target>
+	
+	<target name="jar" depends="prepare,compile" description="创建Jar包">
+		<jar jarfile="${app.dir}\weixin-open-lib.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Cleans up generated stuff                                           -->
+	<!-- =================================================================== -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+ 
+</project>
