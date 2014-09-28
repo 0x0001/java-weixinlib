@@ -14,9 +14,9 @@ import com.github.x0001.weixin.vo.recv.WxRecvMsg;
 import com.github.x0001.weixin.vo.send.WxSendMsg;
 
 public final class WxMsgKit {
-	
+
 	private static final Map<String, WxRecvMsgParser> recvParserMap = new HashMap<String, WxRecvMsgParser>();
-	
+
 	static {
 		// 文本消息解析程序
 		recvParserMap.put("text", new WxRecvTextMsgParser());
@@ -28,15 +28,19 @@ public final class WxMsgKit {
 		recvParserMap.put("image", new WxRecvPicMsgParser());
 		// 事件消息解析程序
 		recvParserMap.put("event", new WxRecvEventMsgParser());
+		// 语音消息解析程序
+		recvParserMap.put("voice", new WxRecvVoiceMsgParser());
+		// 视频消息解析程序
+		recvParserMap.put("video", new WxRecvVideoMsgParser());
 	}
-	
+
 	public static WxRecvMsg parse(InputStream in) throws JDOMException, IOException {
 		Document dom = new SAXBuilder().build(in);
 		Element msgType = dom.getRootElement().getChild("MsgType");
-		if(null != msgType) {
+		if (null != msgType) {
 			String txt = msgType.getText().toLowerCase();
 			WxRecvMsgParser parser = recvParserMap.get(txt);
-			if(null != parser) {
+			if (null != parser) {
 				return parser.parser(dom);
 			} else {
 				System.out.println(txt);
@@ -44,7 +48,7 @@ public final class WxMsgKit {
 		}
 		return null;
 	}
-	
+
 	public static Document parse(WxSendMsg msg) throws JDOMException {
 		return msg.toDocument();
 	}
