@@ -68,28 +68,31 @@ public class WeixinHandler extends WeixinHandlerAdapter { //  WeixinAbstractHand
 
 
 	/**
-	 * 订阅
-	 */
-	protected void onSubscribe() {
-		sendText("欢迎关注xxx");
-	}
-
-	/**
-	 * 取消订阅
-	 */
-	protected void onUnsubscribe(WxRecvEventMsg msg) {
-		System.out.println("取消关注!!!");
-	}
-
-
-	/**
-	 * 其它事件 (点击了菜单)
-	 *
-	 * @param msg
-	 */
-	protected void onOtherEvent(WxRecvEventMsg msg) {
-		System.out.println("其它事件: " + msg.getEventKey());
-	}
+  	 * 订阅
+  	 */
+  	@Override
+  	protected void onSubscribe(WxRecvEventMsg msg) {
+  		sendText("感谢您关注");
+  	}
+  
+  	/**
+  	 * 取消订阅
+  	 */
+  	@Override
+  	protected void onUnsubscribe(WxRecvEventMsg msg) {
+  		System.out.println("取消关注!!!");
+  	}
+  
+  
+  	/**
+  	 * 其它事件 (点击了菜单)
+  	 *
+  	 * @param msg
+  	 */
+  	@Override
+  	protected void onOtherEvent(WxRecvEventMsg msg) {
+  		System.out.println("其它事件: " + msg.getEventKey());
+  	}
 }
 
 
